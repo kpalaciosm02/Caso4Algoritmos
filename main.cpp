@@ -1,8 +1,13 @@
 //https://github.com/nothings/stb  --> link to the repositorie to download the stb libraries
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image.h"
+#include "stb_image_write.h"
+
 
 using namespace std;
 
@@ -19,8 +24,31 @@ int main (){
        4       ||    red, green, blue, alpha (RGBA)
     **Valor alpha: Hace referencia a la transparencia/opacidad de los valores de color de la imagen
     */
-    unsigned char *image = stbi_load("cara.jpg", &width, &height, &channels,0);
-    size_t imageSize = width*height*channels;
+    unsigned char *image = stbi_load("cara.jpg", &width, &height, &channels, 0);
+    if(image == NULL){
+      printf("Error cargando imagen");
+    }
+
+    size_t imageSize = width * height * channels;
+    int gray_channels = channels == 4 ? 2 : 1;
+    size_t gray_img_size = width * height * gray_channels;
+
+    unsigned char *gray_image = (unsigned char *)malloc(gray_img_size);
+    if(gray_image == NULL){
+      printf("hOLA");
+    }
+
+    for(unsigned char *p = image, *pg = gray_image; p!= image + imageSize; p += channels, pg += gray_channels){
+      *pg = (uint8_t)((*p + *(p + 1) + *(p + 2))/3.0);
+      if(channels == 4){
+        *(pg + 1) = *(p + 3);
+      }
+    }
+
+    stbi_write_jpg("cara_gris.jpg", width, height, gray_channels, gray_image, 100);
+
+    unsigned char *imageGrey = stbi_load("cara_gris.jpg", &width, &height, &channels, 0);
+
 
     cout<<"Width of the image: "<<width<<endl;
     cout<<"Height of the image: "<<height<<endl;
@@ -44,5 +72,7 @@ int main (){
 
     //Limpiar 
     stbi_image_free(image);
+    stbi_image_free(imageGrey);
+
     return 0;
 }
