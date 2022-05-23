@@ -1,4 +1,3 @@
-//https://github.com/nothings/stb  --> link to the repositorie to download the stb libraries
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,29 +6,23 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image.h"
 #include "stb_image_write.h"
-
+#include "quadrant.hpp" 
 
 using namespace std;
 
-
 int main (){
-    //Definir valores de la imagen a trabajar
+
     int width, height, channels;
-    /*
-    Cantidad de "channels" o componentes hace referencia a los valores de color referentes de la imagen. Es decir:
-     No. comp      components
-       1       ||    grey
-       2       ||    grey, alpha
-       3       ||    red, green, blue        (RGB)
-       4       ||    red, green, blue, alpha (RGBA)
-    **Valor alpha: Hace referencia a la transparencia/opacidad de los valores de color de la imagen
-    */
+
     unsigned char *image = stbi_load("cara.jpg", &width, &height, &channels, 0);
+    size_t imageSize = width * height * channels;
+
+
     if(image == NULL){
-      printf("Error cargando imagen");
+      cout << ("Error cargando imagen") << endl;
     }
 
-    size_t imageSize = width * height * channels;
+    
     int gray_channels = channels == 4 ? 2 : 1;
     size_t gray_img_size = width * height * gray_channels;
 
@@ -57,10 +50,12 @@ int main (){
 
     //recorrer los primeros 10 pixeles de la imagen
 
-    for(unsigned char *p = image;p!=image + 30; p+=channels){
+    for(unsigned char *p = image; p!=image + 30; p+=channels){
       cout<< *p+0<<" "<<*p+1<<" "<<*p +2<<endl;
     }
 
+
+    
   //Retornar valores RGB de un pixel en especifico
     const size_t RGB = 3;
     int xPosition = 3, yPosition = 80;
