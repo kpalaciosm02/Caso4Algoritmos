@@ -7,7 +7,8 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image.h"
 #include "stb_image_write.h"
-#include "quadrant.hpp" 
+#include "quadrant.hpp"
+#include "divide_image.hpp"
 
 using namespace std;
 
@@ -87,6 +88,12 @@ int main (){
     //Limpiar 
     stbi_image_free(image);
     stbi_image_free(imageGrey);
+
+    vector<Quadrant> quadrants = generate_quadrants(150,0);
+    for (int i = 0; i < quadrants.size(); i++){
+      quadrants.at(i).print();
+    }
+
 
     return 0;
 }

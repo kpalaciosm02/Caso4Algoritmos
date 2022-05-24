@@ -54,6 +54,9 @@ public:
             cout << "Red: " << range->getRed() << " Green: " << range->getGreen() << " Blue: " << range->getBlue() << " Number of appearances: " << range->getNumberOfAppearances() << endl;
         }
     }
+    void print(){
+        cout << "DownLeftX:" << downLeft.first << " DownLeftY:" << downLeft.second << " UpRightX:" << upRight.first << " UpRightY:" << upRight.second << endl;
+    }
 };
 
 #endif

@@ -2,6 +2,9 @@
 
 using namespace std;
 
+#ifndef RANGEMACRO
+#define RANGEMACRO
+
 class Range {
 protected:
     int NumberOfAppearances;
@@ -50,3 +53,4 @@ public:
         return blue+range;
     }
 };
+#endif
