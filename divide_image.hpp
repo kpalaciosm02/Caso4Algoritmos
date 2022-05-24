@@ -4,7 +4,7 @@ using namespace std;
 //int xBorderSize = 150;
 //int yBorderSize = 0;                                //borders from where the image will be processed (quadrant 2)
 
-void generate_quadrants(int xBorderSize, int yBorderSize){
+vector<Quadrant> generate_quadrants(int xBorderSize, int yBorderSize){
     int newImageWidth = 1080 - xBorderSize - xBorderSize;       //image size after taking the 2 exterior columns apart
     int newImageHeight = 1080 - yBorderSize - yBorderSize;
 
@@ -30,4 +30,5 @@ void generate_quadrants(int xBorderSize, int yBorderSize){
         }
         actualX = secondX;
     }
+    return quadrants;
 }
