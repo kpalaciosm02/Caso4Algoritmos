@@ -3,6 +3,9 @@
 
 using namespace std;
 
+#ifndef QUADRANTM
+#define QUADRANTM
+
 class Quadrant {
 
 private:
@@ -52,3 +55,5 @@ public:
         }
     }
 };
+
+#endif
