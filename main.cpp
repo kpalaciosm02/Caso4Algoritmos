@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <random>
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
@@ -11,6 +12,26 @@
 using namespace std;
 
 int main (){
+  random_device device;
+  mt19937 generador(device());
+  vector<int> vec = {25, 25, 25, 25};
+  discrete_distribution<> distribucion(vec.begin(), vec.end());
+
+  for(int intento = 0; intento != 4; intento++){
+    switch(distribucion(generador)){
+      case 0: 
+        cout << "Cuadrante 1";
+        vec.at(0) -= 20;
+        break;
+      case 1: cout << "Cuadrante 2"; break;
+      case 2: cout << "Cuadrante 3"; break;
+      case 3: cout << "Cuadrante 4"; break;
+    }
+  }
+    
+    for (vector<int>::const_iterator i = vec.begin(); i != vec.end(); i++){
+      cout << *i << endl;
+    }
 
     int width, height, channels;
 
@@ -53,8 +74,6 @@ int main (){
     for(unsigned char *p = image; p!=image + 30; p+=channels){
       cout<< *p+0<<" "<<*p+1<<" "<<*p +2<<endl;
     }
-
-
     
   //Retornar valores RGB de un pixel en especifico
     const size_t RGB = 3;
