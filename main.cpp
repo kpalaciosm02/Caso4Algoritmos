@@ -1,5 +1,4 @@
-#include <iostream>
-#include <stdio.h>
+#include <bits/stdc++.h>
 #include <stdlib.h>
 #include <random>
 
@@ -12,40 +11,99 @@
 
 using namespace std;
 
+void PixelRandQuadrant(vector<Quadrant> quadrants, int numberQuadrant, int width, size_t RGB, unsigned char *image, Pixel pixelRandom){
+  Quadrant quadrant = quadrants[numberQuadrant];
+  float randomX = rand() % (quadrant.getUpRight().first - quadrant.getDownLeft().first) + quadrant.getDownLeft().first;
+  float randomY = rand() % (quadrant.getUpRight().second - quadrant.getDownLeft().second) + quadrant.getDownLeft().second;
+  pixelRandom.setCoords(make_pair(randomX, randomY));
+  //pixelRandom.print();
+  size_t index = RGB * (randomY * width + randomX);
+  int red = image[index];
+  int green = image[index + 1];
+  int blue = image[index + 2];
+  quadrant.verifyRange(red, green, blue);
+};
+
 int main (){
   random_device device;
   mt19937 generador(device());
-  vector<int> vec = {25, 25, 25, 25};
+  vector<float> vec = {2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77,
+                       2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77,
+                       2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77,
+                       2.77, 2.77, 2.77, 2.77, 2.77, 2.77};
   discrete_distribution<> distribucion(vec.begin(), vec.end());
 
-  for(int intento = 0; intento != 4; intento++){
+  int width, height, channels;
+  unsigned char *image = stbi_load("cara.jpg", &width, &height, &channels, 0);
+  size_t imageSize = width * height * channels;
+
+  if(image == NULL){
+    cout << ("Error cargando imagen") << endl;
+  }
+
+  vector<Quadrant> quadrants = generate_quadrants(150,0);
+  Pixel pixelRandom;
+  const size_t RGB = 3;
+  int area = 780 * 1080;
+  int pixeles = (area*0.40)/36;
+  int counter = 0;
+
+  while(pixeles > 0){
     switch(distribucion(generador)){
-      case 0: 
+      case 0:
         cout << "Cuadrante 1";
-        vec.at(0) -= 20;
+        PixelRandQuadrant(quadrants, 0, 780, RGB, image, pixelRandom);
         break;
       case 1: cout << "Cuadrante 2"; break;
       case 2: cout << "Cuadrante 3"; break;
       case 3: cout << "Cuadrante 4"; break;
+      case 4: cout << "Cuadrante 5"; break;
+      case 5: cout << "Cuadrante 6"; break;
+      case 6: cout << "Cuadrante 7"; break;
+      case 7: cout << "Cuadrante 8"; break;
+      case 8: cout << "Cuadrante 9"; break;
+      case 9: cout << "Cuadrante 10"; break;
+      case 10: cout << "Cuadrante 11"; break;
+      case 11: cout << "Cuadrante 12"; break;
+      case 12: cout << "Cuadrante 13"; break;
+      case 13: cout << "Cuadrante 14"; break;
+      case 14: cout << "Cuadrante 15"; break;
+      case 15: cout << "Cuadrante 16"; break;
+      case 16: cout << "Cuadrante 17"; break;
+      case 17: cout << "Cuadrante 18"; break;
+      case 18: cout << "Cuadrante 19"; break;
+      case 19: cout << "Cuadrante 20"; break;
+      case 20: cout << "Cuadrante 21"; break;
+      case 21: cout << "Cuadrante 22"; break;
+      case 22: cout << "Cuadrante 23"; break;
+      case 23: cout << "Cuadrante 24"; break;
+      case 24: cout << "Cuadrante 25"; break;
+      case 25: cout << "Cuadrante 26"; break;
+      case 26: cout << "Cuadrante 27"; break;
+      case 27: cout << "Cuadrante 28"; break;
+      case 28: cout << "Cuadrante 29"; break;
+      case 29: cout << "Cuadrante 30"; break;
+      case 30: cout << "Cuadrante 31"; break;
+      case 31: cout << "Cuadrante 32"; break;
+      case 32: cout << "Cuadrante 33"; break;
+      case 33: cout << "Cuadrante 34"; break;
+      case 34: cout << "Cuadrante 35"; break;
+      case 35: cout << "Cuadrante 36"; break;
     }
+    pixeles--;
+    counter++;
   }
-    
-    for (vector<int>::const_iterator i = vec.begin(); i != vec.end(); i++){
-      cout << *i << endl;
-    }
+  cout << "n" << counter << endl;
 
-    int width, height, channels;
+    /*Quadrant quadranti = quadrants[0];
+    vector<Pixel> pixRan = quadranti.getPixelRandomList();
+    for(vector<Pixel>::const_iterator i = pixRan.begin(); i != pixRan.end(); i++){
+        Pixel pixel11 = *i;
+        pixel11.print();
+    }*/
+  
 
-    unsigned char *image = stbi_load("cara.jpg", &width, &height, &channels, 0);
-    size_t imageSize = width * height * channels;
-
-
-    if(image == NULL){
-      cout << ("Error cargando imagen") << endl;
-    }
-
-    
-    int gray_channels = channels == 4 ? 2 : 1;
+    /*int gray_channels = channels == 4 ? 2 : 1;
     size_t gray_img_size = width * height * gray_channels;
 
     unsigned char *gray_image = (unsigned char *)malloc(gray_img_size);
@@ -77,23 +135,19 @@ int main (){
     }
     
   //Retornar valores RGB de un pixel en especifico
-    const size_t RGB = 3;
+    
     int xPosition = 3, yPosition = 80;
     size_t index = RGB * (yPosition * width + xPosition);
     cout << "RGB pixel @ (x=3, y=80): " 
           << static_cast<int>(image[index + 0]) << " "  //red value
           << static_cast<int>(image[index + 1]) << " "  //green value
-          << static_cast<int>(image[index + 2]) << " "<<endl; //blue value
+          << static_cast<int>(image[index + 2]) << " "<<endl; //blue value*/
 
     //Limpiar 
     stbi_image_free(image);
-    stbi_image_free(imageGrey);
+    //stbi_image_free(imageGrey);
 
-    vector<Quadrant> quadrants = generate_quadrants(150,0);
-    for (int i = 0; i < quadrants.size(); i++){
-      quadrants.at(i).print();
-    }
-
+    
 
     return 0;
 }

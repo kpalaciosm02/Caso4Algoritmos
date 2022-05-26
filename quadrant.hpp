@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "range.hpp"
+#include "pixel.hpp"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ private:
     pair<int, int> downLeft;
     pair<int, int> upRight;
     vector<Range*> ranges;
+    vector<Pixel> pixelRandomList;
 
 public:
     Quadrant(pair<int, int> downLeft, pair<int, int> upRight){
@@ -24,6 +26,10 @@ public:
     }
     pair<int, int> getUpRight(){
         return this->upRight;
+    }
+
+    vector<Pixel> getPixelRandomList(){
+        return this->pixelRandomList;
     }
 
     void verifyRange(int red, int green, int blue) {
