@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <stdlib.h>
 #include <random>
-
+#include  "socketWin.cpp"
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image.h"
@@ -9,14 +9,14 @@
 #include "quadrant.hpp"
 #include "divide_image.hpp"
 
-using namespace std;
+//using namespace std;
 
 Pixel PixelRandQuadrant(vector<Quadrant> quadrants, int numberQuadrant, int width, size_t RGB, unsigned char *image, Pixel pixelRandom){
   Quadrant quadrant = quadrants[numberQuadrant];
   float randomX = rand() % (quadrant.getUpRight().first - quadrant.getDownLeft().first) + quadrant.getDownLeft().first;
   float randomY = rand() % (quadrant.getUpRight().second - quadrant.getDownLeft().second) + quadrant.getDownLeft().second;
   pixelRandom.setCoords(make_pair(randomX, randomY));
-  //pixelRandom.print();
+  // pixelRandom.print();
   size_t index = RGB * (randomY * width + randomX);
   int red = image[index];
   int green = image[index + 1];
@@ -39,7 +39,8 @@ void calculateBounderyDistance(Pixel pixelRandom){
 
 }
 
-int main (){
+int main()
+{
   random_device device;
   mt19937 generador(device());
   vector<float> vec = {2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77, 2.77,
@@ -52,15 +53,16 @@ int main (){
   unsigned char *image = stbi_load("cara.jpg", &width, &height, &channels, 0);
   size_t imageSize = width * height * channels;
 
-  if(image == NULL){
-    cout << ("Error cargando imagen") << endl;
+  if (image == NULL)
+  {
+    std::cout << ("Error cargando imagen") << endl;
   }
 
-  vector<Quadrant> quadrants = generate_quadrants(150,0);
+  vector<Quadrant> quadrants = generate_quadrants(150, 0);
   Pixel pixelRandom;
   const size_t RGB = 3;
   int area = 780 * 1080;
-  int pixeles = (area*0.40)/36;
+  int pixeles = (area * 0.40) / 36;
   int counter = 0;
 
   while(pixeles > 0){
@@ -145,51 +147,61 @@ int main (){
       p.print();
     }
 
-    /*int gray_channels = channels == 4 ? 2 : 1;
-    size_t gray_img_size = width * height * gray_channels;
+  /*int gray_channels = channels == 4 ? 2 : 1;
+  size_t gray_img_size = width * height * gray_channels;
 
-    unsigned char *gray_image = (unsigned char *)malloc(gray_img_size);
-    if(gray_image == NULL){
-      printf("hOLA");
+  unsigned char *gray_image = (unsigned char *)malloc(gray_img_size);
+  if(gray_image == NULL){
+    printf("hOLA");
+  }
+
+  for(unsigned char *p = image, *pg = gray_image; p!= image + imageSize; p += channels, pg += gray_channels){
+    *pg = (uint8_t)((*p + *(p + 1) + *(p + 2))/3.0);
+    if(channels == 4){
+      *(pg + 1) = *(p + 3);
     }
+  }
 
-    for(unsigned char *p = image, *pg = gray_image; p!= image + imageSize; p += channels, pg += gray_channels){
-      *pg = (uint8_t)((*p + *(p + 1) + *(p + 2))/3.0);
-      if(channels == 4){
-        *(pg + 1) = *(p + 3);
-      }
-    }
+  stbi_write_jpg("cara_gris.jpg", width, height, gray_channels, gray_image, 100);
 
-    stbi_write_jpg("cara_gris.jpg", width, height, gray_channels, gray_image, 100);
-
-    unsigned char *imageGrey = stbi_load("cara_gris.jpg", &width, &height, &channels, 0);
+  unsigned char *imageGrey = stbi_load("cara_gris.jpg", &width, &height, &channels, 0);
 
 
-    cout<<"Width of the image: "<<width<<endl;
-    cout<<"Height of the image: "<<height<<endl;
-    cout<<"Number of channels of the image: "<<channels<<endl;
-    cout<<endl;
+  cout<<"Width of the image: "<<width<<endl;
+  cout<<"Height of the image: "<<height<<endl;
+  cout<<"Number of channels of the image: "<<channels<<endl;
+  cout<<endl;
 
-    //recorrer los primeros 10 pixeles de la imagen
+  //recorrer los primeros 10 pixeles de la imagen
 
-    for(unsigned char *p = image; p!=image + 30; p+=channels){
-      cout<< *p+0<<" "<<*p+1<<" "<<*p +2<<endl;
-    }
-    
-  //Retornar valores RGB de un pixel en especifico
-    
-    int xPosition = 3, yPosition = 80;
-    size_t index = RGB * (yPosition * width + xPosition);
-    cout << "RGB pixel @ (x=3, y=80): " 
-          << static_cast<int>(image[index + 0]) << " "  //red value
-          << static_cast<int>(image[index + 1]) << " "  //green value
-          << static_cast<int>(image[index + 2]) << " "<<endl; //blue value*/
+  for(unsigned char *p = image; p!=image + 30; p+=channels){
+    cout<< *p+0<<" "<<*p+1<<" "<<*p +2<<endl;
+  }
 
-    //Limpiar 
-    stbi_image_free(image);
-    //stbi_image_free(imageGrey);
+//Retornar valores RGB de un pixel en especifico
 
-    
+  int xPosition = 3, yPosition = 80;
+  size_t index = RGB * (yPosition * width + xPosition);
+  cout << "RGB pixel @ (x=3, y=80): "
+        << static_cast<int>(image[index + 0]) << " "  //red value
+        << static_cast<int>(image[index + 1]) << " "  //green value
+        << static_cast<int>(image[index + 2]) << " "<<endl; //blue value*/
 
-    return 0;
+  // Limpiar
+  stbi_image_free(image);
+  //stbi_image_free(imageGrey);
+  cout << "Llegue" << endl << endl;
+  /*socketclient client;
+
+  client.init();
+
+  client.clear();
+  client.paintLine(70, 80, 50, 100, 300, 100, 400, 600);
+  client.paintDot(200, 0, 15, 200, 500, 600, 15);
+  client.paintDot(220, 150, 15, 200, 600, 600, 20);
+  client.paintLine(200, 1, 1, 50, 50, 500, 20, 350);
+
+  client.closeConnection();*/
+  //stbi_image_free(image);
+  return 0;
 }
