@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
 
@@ -49,15 +50,15 @@ public:
     }
 
     void setBounderyDistance(float _bounderyDistance){
-            this->bounderyDistance = _bounderyDistance;
+        this->bounderyDistance = _bounderyDistance;
     }
 
     void setBoundery(float _boundery){
-            this-> boundery = _boundery;
+        this-> boundery = _boundery;
     }
 
     void setDistancePercentage(float _distancePercentage){
-            this->distancePercentage = _distancePercentage;
+        this->distancePercentage = _distancePercentage;
     }
 
     void print(){

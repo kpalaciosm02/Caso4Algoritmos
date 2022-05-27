@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void PixelRandQuadrant(vector<Quadrant> quadrants, int numberQuadrant, int width, size_t RGB, unsigned char *image, Pixel pixelRandom){
+Pixel PixelRandQuadrant(vector<Quadrant> quadrants, int numberQuadrant, int width, size_t RGB, unsigned char *image, Pixel pixelRandom){
   Quadrant quadrant = quadrants[numberQuadrant];
   float randomX = rand() % (quadrant.getUpRight().first - quadrant.getDownLeft().first) + quadrant.getDownLeft().first;
   float randomY = rand() % (quadrant.getUpRight().second - quadrant.getDownLeft().second) + quadrant.getDownLeft().second;
@@ -22,7 +22,22 @@ void PixelRandQuadrant(vector<Quadrant> quadrants, int numberQuadrant, int width
   int green = image[index + 1];
   int blue = image[index + 2];
   quadrant.verifyRange(red, green, blue);
-};
+
+  return pixelRandom;
+}
+
+void calculateDistancePercentage(Pixel pixelRandom){
+  float distancePer = pixelRandom.getBoundery()/pixelRandom.getBounderyDistance();
+  pixelRandom.setDistancePercentage(distancePer);
+}
+
+void calculateBoundery(Pixel pixelRandom){
+
+}
+
+void calculateBounderyDistance(Pixel pixelRandom){
+
+}
 
 int main (){
   random_device device;
@@ -52,11 +67,36 @@ int main (){
     switch(distribucion(generador)){
       case 0:
         cout << "Cuadrante 1";
-        PixelRandQuadrant(quadrants, 0, 780, RGB, image, pixelRandom);
+        pixelRandom = PixelRandQuadrant(quadrants, 0, 780, RGB, image, pixelRandom);
+        quadrants[0].setPixelRan(pixelRandom);
+        calculateBoundery(pixelRandom);
+        calculateBounderyDistance(pixelRandom);
+        calculateDistancePercentage(pixelRandom);
         break;
-      case 1: cout << "Cuadrante 2"; break;
-      case 2: cout << "Cuadrante 3"; break;
-      case 3: cout << "Cuadrante 4"; break;
+      case 1: 
+        cout << "Cuadrante 2"; 
+        pixelRandom = PixelRandQuadrant(quadrants, 1, 780, RGB, image, pixelRandom);
+        quadrants[1].setPixelRan(pixelRandom);
+        calculateBoundery(pixelRandom);
+        calculateBounderyDistance(pixelRandom);
+        calculateDistancePercentage(pixelRandom);
+        break;
+      case 2: 
+        cout << "Cuadrante 3";
+        pixelRandom = PixelRandQuadrant(quadrants, 2, 780, RGB, image, pixelRandom);
+        quadrants[2].setPixelRan(pixelRandom);
+        calculateBoundery(pixelRandom);
+        calculateBounderyDistance(pixelRandom);
+        calculateDistancePercentage(pixelRandom);
+        break;
+      case 3: 
+        cout << "Cuadrante 4"; 
+        pixelRandom = PixelRandQuadrant(quadrants, 3, 780, RGB, image, pixelRandom);
+        quadrants[3].setPixelRan(pixelRandom);
+        calculateBoundery(pixelRandom);
+        calculateBounderyDistance(pixelRandom);
+        calculateDistancePercentage(pixelRandom);
+        break;
       case 4: cout << "Cuadrante 5"; break;
       case 5: cout << "Cuadrante 6"; break;
       case 6: cout << "Cuadrante 7"; break;
@@ -88,20 +128,22 @@ int main (){
       case 32: cout << "Cuadrante 33"; break;
       case 33: cout << "Cuadrante 34"; break;
       case 34: cout << "Cuadrante 35"; break;
-      case 35: cout << "Cuadrante 36"; break;
+      case 35: 
+        cout << "Cuadrante 36"; 
+        pixelRandom = PixelRandQuadrant(quadrants, 35, 780, RGB, image, pixelRandom);
+        quadrants[35].setPixelRan(pixelRandom);
+        break;
     }
     pixeles--;
     counter++;
   }
-  cout << "n" << counter << endl;
-
-    /*Quadrant quadranti = quadrants[0];
-    vector<Pixel> pixRan = quadranti.getPixelRandomList();
-    for(vector<Pixel>::const_iterator i = pixRan.begin(); i != pixRan.end(); i++){
-        Pixel pixel11 = *i;
-        pixel11.print();
-    }*/
+    cout << "n" << counter << endl;
   
+    vector<Pixel> pix = quadrants[35].getPixelRandomList();
+    for(vector<Pixel>::const_iterator i = pix.begin(); i != pix.end(); i++){
+      Pixel p = *i;
+      p.print();
+    }
 
     /*int gray_channels = channels == 4 ? 2 : 1;
     size_t gray_img_size = width * height * gray_channels;

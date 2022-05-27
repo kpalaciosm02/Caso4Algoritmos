@@ -32,6 +32,10 @@ public:
         return this->pixelRandomList;
     }
 
+    void setPixelRan(Pixel pixelRandom){
+        this->pixelRandomList.push_back(pixelRandom);
+    }
+
     void verifyRange(int red, int green, int blue) {
         for (Range* range : ranges) {
             if (range->isInRange(red, green, blue)) {
