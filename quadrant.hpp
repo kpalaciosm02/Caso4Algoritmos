@@ -2,7 +2,7 @@
 #include "range.hpp"
 #include "pixel.hpp"
 
-using namespace std;
+//using namespace std;
 
 #ifndef QUADRANTM
 #define QUADRANTM
@@ -14,6 +14,7 @@ private:
     pair<int, int> upRight;
     vector<Range*> ranges;
     vector<Pixel> pixelRandomList;
+    string grayTone;
 
 public:
     Quadrant(pair<int, int> downLeft, pair<int, int> upRight){
@@ -52,16 +53,25 @@ public:
                 index = i;
             }
         }
-        cout<<"El color predominante es: "<< ranges[index]->getRed()<<", "<<ranges[index]->getGreen()<<", "<<ranges[index]->getBlue()<<endl;
+        std::cout<<"El color predominante es: "<< ranges[index]->getRed()<<", "<<ranges[index]->getGreen()<<", "<<ranges[index]->getBlue()<<endl;
     }
 
     void getRanges() {
         for (Range* range : ranges) {
-            cout << "Red: " << range->getRed() << " Green: " << range->getGreen() << " Blue: " << range->getBlue() << " Number of appearances: " << range->getNumberOfAppearances() << endl;
+            std::cout << "Red: " << range->getRed() << " Green: " << range->getGreen() << " Blue: " << range->getBlue() << " Number of appearances: " << range->getNumberOfAppearances() << endl;
         }
     }
     void print(){
-        cout << "DownLeftX:" << downLeft.first << " DownLeftY:" << downLeft.second << " UpRightX:" << upRight.first << " UpRightY:" << upRight.second << endl;
+        std::cout << "DownLeftX:" << downLeft.first << " DownLeftY:" << downLeft.second << " UpRightX:" << upRight.first << " UpRightY:" << upRight.second << endl;
+    }
+    void printGray(){
+        std::cout << "GrayTone: " << grayTone << endl;
+    }
+    void setGray(string tone){
+        this->grayTone = tone;
+    }
+    string getGray(){
+        return this->grayTone;
     }
 };
 

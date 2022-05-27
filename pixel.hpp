@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-using namespace std;
+//using namespace std;
 
 #ifndef PIXELM
 #define PIXELM
@@ -61,7 +61,7 @@ public:
     }
 
     void print(){
-        cout << "X:" << coords.first << " Y:" << coords.second << endl;
+        std::cout << "X:" << coords.first << " Y:" << coords.second << endl;
     }
 
 };
