@@ -2,7 +2,7 @@
 #include "range.hpp"
 #include "pixel.hpp"
 
-using namespace std;
+//using namespace std;
 
 #ifndef QUADRANTM
 #define QUADRANTM
@@ -14,7 +14,7 @@ private:
     pair<int, int> upRight;
     vector<Range*> ranges;
     vector<Pixel> pixelRandomList;
-    string grayTone;
+    float densityPixels;
 
 public:
     Quadrant(pair<int, int> downLeft, pair<int, int> upRight){
@@ -35,6 +35,14 @@ public:
 
     void setPixelRan(Pixel pixelRandom){
         this->pixelRandomList.push_back(pixelRandom);
+    }
+
+    float getDensityPixels(){
+        return this->densityPixels;
+    }
+
+    void setDensityPixels(float _densityPixels){
+        this->densityPixels = _densityPixels;
     }
 
     void verifyRange(int red, int green, int blue) {
@@ -67,15 +75,6 @@ public:
     }
     void print(){
         std::cout << "DownLeftX:" << downLeft.first << " DownLeftY:" << downLeft.second << " UpRightX:" << upRight.first << " UpRightY:" << upRight.second << endl;
-    }
-    void printGray(){
-        std::cout << "GrayTone: " << grayTone << endl;
-    }
-    void setGray(string tone){
-        this->grayTone = tone;
-    }
-    string getGray(){
-        return this->grayTone;
     }
 };
 

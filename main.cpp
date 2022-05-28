@@ -19,7 +19,7 @@
 #include "individual.h"
 
 
-#define DISTRIBUTION_SIZE 3
+#define DISTRIBUTION_SIZE 35
 
 using namespace std;
 
@@ -45,16 +45,44 @@ int main(){
   Pixel pixelRandom;
   const size_t RGB = 3;
   int area = 780 * 1080;
-  int pixeles = (area * 0.2);
+  int pixeles = (area * 0.1);
 
   ProbabilisticBase probabilistic;
   quadrants = probabilistic.chooseRandomQuadrant(pixeles, distribucion, generador, quadrants, pixelRandom, RGB, width, image);
   probabilistic.setQuadrantsProbabilistic(quadrants);
 
+  GeneticBase genetic;
+
+  cromodistribution distribution[35];
+
+  genetic.createCromoDis(quadrants, distribution);
+
+  for(int i=0; i<DISTRIBUTION_SIZE; i++) {
+      genetic.addDistribution(&distribution[i]);
+  }
+
+  //Población inicial de individuos
+    genetic.initPopulation(3000);
+
+    cout << "initial population" << endl;
+    vector<individual*> result = genetic.getPopulation();
+    for(int i=0; i<result.size(); i++) {
+        cout << result.at(i)->getCromosoma() << endl;
+    }
+
+    // 3. measure the fitness of the population and reproduce it until reach the target generations
+    // la cantidad de generaciones y cuantos hijos quiero hacer por generacion
+    genetic.produceGenerations(3, 20);
+
+    // check final population
+    cout << "final population" << endl;
+    result = genetic.getPopulation();
+    for(int i=0; i<result.size(); i++) {
+        cout << result.at(i)->getCromosoma() << endl;
+    }
+
   // Limpiar
   stbi_image_free(image);
-
-  cout << "Llegue" << endl << endl;
 
   return 0;
 }

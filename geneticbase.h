@@ -4,6 +4,7 @@
 #include "cromodistribution.h"
 #include "individual.h"
 #include <stdlib.h>
+#include <cmath>
 
 using namespace std;
 
@@ -15,7 +16,6 @@ class GeneticBase {
         vector<individual*> *unfitnessPopulation;
         int populationQuantity;
         int targetGenerations;
-
 
         void evaluateFitness() {
             fitnessPopulation->clear();
@@ -33,10 +33,7 @@ class GeneticBase {
         }
 
         float fitness(individual *pIndividual) {
-            // aqui es donde más hay que hacer mente, cuál va a ser mi función de fitness
-            // la función de fitness tiene la responsabilidad de guiar la población
-            // pues es la que selecciona los mejores dado que esos están cada vez más cerca de la respuesta
-            return rand()%100;
+            return rand()%36;
         }
 
         void reproduce(int pAmountOfChildrens) {
@@ -99,6 +96,41 @@ class GeneticBase {
             for(int i=0; i<ptargetGenerations; i++) {
                 evaluateFitness();
                 reproduce(pChildrensPerGenerations);
+            }
+        }
+
+        void createCromoDis(vector<Quadrant> quadrants, cromodistribution distribution[35]){
+            for(int i = 0; i < 35; i++){
+                Quadrant quadrant = quadrants[i];
+                distribution[i].x = quadrant.getUpRight().first;
+                distribution[i].y = quadrant.getUpRight().second;
+                distribution[i].x1 = quadrant.getDownLeft().first;
+                distribution[i].y1 = quadrant.getDownLeft().second;
+                float density = quadrant.getDensityPixels();
+                if(density < 0.60){
+                distribution[i].shape = "linea";
+                if(density > 0.0 && density < 0.2){
+                    distribution[i].size = "grande";
+                }
+                else if(density > 0.2 && density < 0.4){
+                    distribution[i].size = "mediano";
+                }
+                else{
+                    distribution[i].size = "pequeño";
+                }
+                }else{
+                distribution[i].shape = "punto";
+                if(density > 0.6 && density < 0.7){
+                    distribution[i].size = "grande";
+                }
+                else if(density > 0.7 && density < 0.9){
+                    distribution[i].size = "mediano";
+                }
+                else{
+                    distribution[i].size = "pequeño";
+                }
+                }
+                distribution[i].quantityPixels = quadrant.getPixelRandomList().size();
             }
         }
 

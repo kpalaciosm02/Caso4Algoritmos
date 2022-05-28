@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#define CROMO_MAX_VALUE 256
-#define NIBBLE_SIZE 8
+#define CROMO_MAX_VALUE 65535
+#define NIBBLE_SIZE 16
 
 using namespace std;
 
@@ -12,12 +12,10 @@ struct cromodistribution {
     float x;
     float y;
     float x1;
-    float x2;
-    string greyTone;
+    float y1;
     string shape;
     string size;
-    int quantity;
-    int distribution;
+    int quantityPixels;
 };
 
 #endif
