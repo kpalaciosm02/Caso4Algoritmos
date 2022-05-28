@@ -13,6 +13,8 @@
 #include "quadrant.hpp"
 #include "divide_image.hpp"
 #include "probabilisticAlgorithm.hpp"
+#include "color.hpp"
+#include "grayTone.hpp"
 
 #include "geneticbase.h"
 #include "cromodistribution.h"
@@ -48,8 +50,8 @@ int main(){
   int pixeles = (area * 0.1);
 
   ProbabilisticBase probabilistic;
-  quadrants = probabilistic.chooseRandomQuadrant(pixeles, distribucion, generador, quadrants, pixelRandom, RGB, width, image);
-  probabilistic.setQuadrantsProbabilistic(quadrants);
+  quadrants = probabilistic.chooseRandomQuadrant(pixeles, /*distribucion,*/ generador, quadrants, pixelRandom, RGB, width, image,vec);
+  //probabilistic.setQuadrantsProbabilistic(quadrants);
 
   GeneticBase genetic;
 
@@ -83,6 +85,12 @@ int main(){
 
   // Limpiar
   stbi_image_free(image);
+
+  cout << "Llegue" << endl << endl;
+
+  Color color1(79,29,69,255);
+  GrayTone gray1;
+  gray1.rgbtoGray(color1);
 
   return 0;
 }
