@@ -17,6 +17,10 @@ private:
     float densityPixels;
 
 public:
+    Quadrant(){
+
+    }
+
     Quadrant(pair<int, int> downLeft, pair<int, int> upRight){
         this->downLeft = downLeft;
         this->upRight = upRight;

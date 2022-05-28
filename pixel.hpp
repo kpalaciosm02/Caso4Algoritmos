@@ -19,12 +19,12 @@ public:
         this->pixelGrayTone = Color(0,0,0,255);
     }
 
-    Pixel(pair<int, int> _coords){
+    Pixel(pair<float, float> _coords){
         this->coords = _coords;
         this->pixelGrayTone = Color(0,0,0,255);
     }
 
-    pair<int, int> getCoords(){
+    pair<float, float> getCoords(){
         return this->coords;
     }
 
@@ -32,7 +32,7 @@ public:
         return this->pixelGrayTone;
     }
 
-    void setCoords(pair<int, int> _coords){
+    void setCoords(pair<float, float> _coords){
         this->coords = _coords;
     }
 

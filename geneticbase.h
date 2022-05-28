@@ -23,8 +23,7 @@ class GeneticBase {
 
             for(int i=0;i<population->size(); i++) {
                population->at(i)->setFitnessValue(fitness(population->at(i)));
-                // ajustarlo al fitness y fitness criteria del problema
-                if (population->at(i)->getFitnessValue()>50) {  
+                if (population->at(i)->getFitnessValue()> 40) {  
                     fitnessPopulation->push_back(population->at(i));
                 } else {
                     unfitnessPopulation->push_back(population->at(i));
@@ -32,8 +31,137 @@ class GeneticBase {
             }
         }
 
+        Quadrant getRangesCromo(individual *pIndividual){
+            unsigned char cromosoma = pIndividual->getCromosoma();
+            Quadrant quadrantActualCromo;
+            ProbabilisticBase probabilistic;
+            vector<Quadrant> prob = probabilistic.getQuadrantsProbabilistic();
+            if(cromosoma > 0 && cromosoma < 1820)
+                quadrantActualCromo = prob[0];
+            if(cromosoma > 1821 && cromosoma < 3641)
+                quadrantActualCromo = prob[1];
+            if(cromosoma > 3642 && cromosoma < 5462)
+                quadrantActualCromo = prob[2];
+            if(cromosoma > 5463 && cromosoma < 7283)
+                quadrantActualCromo = prob[3];
+            if(cromosoma > 7284 && cromosoma < 9104)
+                quadrantActualCromo = prob[4];
+            if(cromosoma > 9105 && cromosoma < 10925)
+                quadrantActualCromo = prob[5];
+            if(cromosoma > 10926  && cromosoma < 12746)
+                quadrantActualCromo = prob[6];
+            if(cromosoma > 12747 && cromosoma < 14567)
+                quadrantActualCromo = prob[7];
+            if(cromosoma > 14568 && cromosoma < 16388)
+                quadrantActualCromo = prob[8];
+            if(cromosoma > 16389 && cromosoma < 18209)
+                quadrantActualCromo = prob[9];
+            if(cromosoma > 18210 && cromosoma < 20030)
+                quadrantActualCromo = prob[10];
+            if(cromosoma > 20031 && cromosoma < 21851)
+                quadrantActualCromo = prob[11];
+            if(cromosoma > 21852 && cromosoma < 23672)
+                quadrantActualCromo = prob[12];
+            if(cromosoma > 23673 && cromosoma < 25493)
+                quadrantActualCromo = prob[13];
+            if(cromosoma > 25494 && cromosoma < 27314)
+                quadrantActualCromo = prob[14];
+            if(cromosoma > 27315 && cromosoma < 29135)
+                quadrantActualCromo = prob[15];
+            if(cromosoma > 29136 && cromosoma < 30956)
+                quadrantActualCromo = prob[16];
+            if(cromosoma > 30957 && cromosoma < 32777)
+                quadrantActualCromo = prob[17];
+            if(cromosoma > 32778 && cromosoma < 34598)
+                quadrantActualCromo = prob[18];
+            if(cromosoma > 34599 && cromosoma < 36419)
+                quadrantActualCromo = prob[19];
+            if(cromosoma > 36420 && cromosoma < 38240)
+                quadrantActualCromo = prob[20];
+            if(cromosoma > 38241 && cromosoma < 40061)
+                quadrantActualCromo = prob[21];
+            if(cromosoma > 40062 && cromosoma < 41882)
+                quadrantActualCromo = prob[22];
+            if(cromosoma > 41883 && cromosoma < 43703)
+                quadrantActualCromo = prob[23];
+            if(cromosoma > 43704 && cromosoma < 45524)
+                quadrantActualCromo = prob[24];
+            if(cromosoma > 45525 && cromosoma < 47345)
+                quadrantActualCromo = prob[25];
+            if(cromosoma > 47346 && cromosoma < 49166)
+                quadrantActualCromo = prob[26];
+            if(cromosoma > 49167 && cromosoma < 50987)
+                quadrantActualCromo = prob[27];
+            if(cromosoma > 50988 && cromosoma < 52808)
+                quadrantActualCromo = prob[28];
+            if(cromosoma > 52809 && cromosoma < 54629)
+                quadrantActualCromo = prob[29];
+            if(cromosoma > 54630 && cromosoma < 56450)
+                quadrantActualCromo = prob[30];
+            if(cromosoma > 56451 && cromosoma < 58271)
+                quadrantActualCromo = prob[31];
+            if(cromosoma > 58272 && cromosoma < 60092)
+                quadrantActualCromo = prob[32];
+            if(cromosoma > 60093 && cromosoma < 61913)
+                quadrantActualCromo = prob[33];
+            if(cromosoma > 61914 && cromosoma < 63734)
+                quadrantActualCromo = prob[34];
+            else{
+                quadrantActualCromo = prob[35];
+            }
+            return quadrantActualCromo;
+        }
+
+        void getPixelQuadrantCromo(Quadrant quadrant){
+            Pixel p1, p2;
+            pair<float, float> coordsPixel, coordsNeigh1, coordsNeigh2;
+            std::vector<Pixel> pixels = quadrant.getPixelRandomList();
+            int randomIndex = rand()%pixels.size()-1;
+            for(int i = 0; i < pixels.size(); i++){
+                int pixelIndex = i;
+                if(pixelIndex == randomIndex){
+                    Pixel p = pixels[i];
+                    if(randomIndex == pixels.size()){
+                        p1 = pixels[i-1];
+                        p2 = pixels[i-2];
+                    }else{
+                        p1 = pixels[i+1];
+                        p2 = pixels[i+2];
+                    }
+                    coordsPixel = p.getCoords();
+                    coordsNeigh1 = p1.getCoords();
+                    coordsNeigh2 = p2.getCoords();
+                }
+            }
+            pixelNeighbours(coordsPixel, coordsNeigh1, coordsNeigh2);
+        }
+
+        float pixelNeighbours(pair<float, float> coordsPixel, pair<float, float> coordsNeigh1, pair<float, float> coordsNeigh2){
+            float subsXNeigh1 = coordsNeigh1.first - coordsPixel.first;
+            float subsYNeigh1 = coordsNeigh1.second - coordsPixel.second;
+            float subsXNeigh2 = coordsNeigh2.first - coordsPixel.first;
+            float subsYNeigh2 = coordsNeigh2.second - coordsPixel.second;
+
+            float distanceNeigh1 = sqrt(pow((subsXNeigh1), 2)  + pow((subsYNeigh1), 2));
+            float distanceNeigh2 = sqrt(pow((subsXNeigh2), 2)  + pow((subsYNeigh2), 2));
+
+            float distanceDivTotal1 = distanceNeigh1 / 20;
+            float distanceDivTotal2 = distanceNeigh2 / 20;
+
+            float distanceDivOne1 = 1 / distanceDivTotal1;
+            float distanceDivOne2 = 1 / distanceDivTotal2;
+
+            float fitnessValue = distanceDivOne1 + distanceDivOne2;
+
+            return fitnessValue;
+        }
+
         float fitness(individual *pIndividual) {
-            return rand()%36;
+            float fitness;
+            Quadrant quadrantActualCromo = getRangesCromo(pIndividual);
+            getPixelQuadrantCromo(quadrantActualCromo);
+
+            return fitness;
         }
 
         void reproduce(int pAmountOfChildrens) {
