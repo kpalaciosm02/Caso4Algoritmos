@@ -17,6 +17,8 @@ private:
     float densityPixels;
 
 public:
+    Quadrant(){
+    }
     Quadrant(std::pair<int, int> downLeft, std::pair<int, int> upRight){
         this->downLeft = downLeft;
         this->upRight = upRight;

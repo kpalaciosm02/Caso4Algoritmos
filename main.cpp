@@ -73,7 +73,7 @@ int main(){
     /*for(int i=0; i<result.size(); i++) {
         cout << result.at(i)->getCromosoma() << endl;
     }*/
-
+    std::cout << "Llegue1" << endl;
     // 3. measure the fitness of the population and reproduce it until reach the target generations
     // la cantidad de generaciones y cuantos hijos quiero hacer por generacion
     genetic.produceGenerations(3, 20);
@@ -84,6 +84,7 @@ int main(){
     /*for(int i=0; i<result.size(); i++) {
         cout << result.at(i)->getCromosoma() << endl;
     }*/
+    std::cout << "Llegue:2" << std::endl;
     // Limpiar
     stbi_image_free(image);
 
