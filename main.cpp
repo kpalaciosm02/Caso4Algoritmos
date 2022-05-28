@@ -50,7 +50,7 @@ int main(){
   int pixeles = (area * 0.2);
 
   ProbabilisticBase probabilistic;
-  //quadrants = probabilistic.chooseRandomQuadrant(pixeles, distribucion, generador, quadrants, pixelRandom, RGB, width, image);
+  quadrants = probabilistic.chooseRandomQuadrant(pixeles, /*distribucion,*/ generador, quadrants, pixelRandom, RGB, width, image,vec);
   //probabilistic.setQuadrantsProbabilistic(quadrants);
 
   // Limpiar

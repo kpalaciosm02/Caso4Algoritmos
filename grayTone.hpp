@@ -19,8 +19,8 @@ class GrayTone{
                 sixteenMultiplier = average/16;
             }
             int grayCode = sixteenMultiplier * 16;
-            Color finalGray(grayCode,grayCode,grayCode,255);
-            finalGray.print();
+            Color finalGray(grayCode-1,grayCode-1,grayCode-1,255);
+            //finalGray.print();
             return finalGray;
         }
 };
