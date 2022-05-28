@@ -2,7 +2,7 @@
 #include "range.hpp"
 #include "pixel.hpp"
 
-//using namespace std;
+using namespace std;
 
 #ifndef QUADRANTM
 #define QUADRANTM
