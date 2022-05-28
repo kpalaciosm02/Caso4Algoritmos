@@ -10,26 +10,26 @@
 class Quadrant {
 
 private:
-    pair<int, int> downLeft;
-    pair<int, int> upRight;
-    vector<Range*> ranges;
-    vector<Pixel> pixelRandomList;
+    std::pair<int, int> downLeft;
+    std::pair<int, int> upRight;
+    std::vector<Range*> ranges;
+    std::vector<Pixel> pixelRandomList;
     float densityPixels;
 
 public:
-    Quadrant(pair<int, int> downLeft, pair<int, int> upRight){
+    Quadrant(std::pair<int, int> downLeft, std::pair<int, int> upRight){
         this->downLeft = downLeft;
         this->upRight = upRight;
     }
 
-    pair<int, int> getDownLeft(){
+    std::pair<int, int> getDownLeft(){
         return this->downLeft;
     }
-    pair<int, int> getUpRight(){
+    std::pair<int, int> getUpRight(){
         return this->upRight;
     }
 
-    vector<Pixel> getPixelRandomList(){
+    std::vector<Pixel> getPixelRandomList(){
         return this->pixelRandomList;
     }
 
@@ -65,16 +65,16 @@ public:
                 index = i;
             }
         }
-        std::cout<<"El color predominante es: "<< ranges[index]->getRed()<<", "<<ranges[index]->getGreen()<<", "<<ranges[index]->getBlue()<<endl;
+        std::cout<<"El color predominante es: "<< ranges[index]->getRed()<<", "<<ranges[index]->getGreen()<<", "<<ranges[index]->getBlue()<< std::endl;
     }
 
     void getRanges() {
         for (Range* range : ranges) {
-            std::cout << "Red: " << range->getRed() << " Green: " << range->getGreen() << " Blue: " << range->getBlue() << " Number of appearances: " << range->getNumberOfAppearances() << endl;
+            std::cout << "Red: " << range->getRed() << " Green: " << range->getGreen() << " Blue: " << range->getBlue() << " Number of appearances: " << range->getNumberOfAppearances() << std::endl;
         }
     }
     void print(){
-        std::cout << "DownLeftX:" << downLeft.first << " DownLeftY:" << downLeft.second << " UpRightX:" << upRight.first << " UpRightY:" << upRight.second << endl;
+        std::cout << "DownLeftX:" << downLeft.first << " DownLeftY:" << downLeft.second << " UpRightX:" << upRight.first << " UpRightY:" << upRight.second << std::endl;
     }
 };
 

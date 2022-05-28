@@ -6,15 +6,15 @@
 #define CROMO_MAX_VALUE 65535
 #define NIBBLE_SIZE 16
 
-using namespace std;
+//using namespace std;
 
 struct cromodistribution {
     float x;
     float y;
     float x1;
     float y1;
-    string shape;
-    string size;
+    std::string shape;
+    std::string size;
     int quantityPixels;
 };
 

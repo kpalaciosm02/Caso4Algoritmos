@@ -1,10 +1,10 @@
 #include "quadrant.hpp"
 #include <vector>
-using namespace std;
+//using namespace std;
 //int xBorderSize = 150;
 //int yBorderSize = 0;                                //borders from where the image will be processed (quadrant 2)
 
-vector<Quadrant> generate_quadrants(int xBorderSize, int yBorderSize){
+std::vector<Quadrant> generate_quadrants(int xBorderSize, int yBorderSize){
     int newImageWidth = 1080 - xBorderSize - xBorderSize;       //image size after taking the 2 exterior columns apart
     int newImageHeight = 1080 - yBorderSize - yBorderSize;
 
@@ -17,15 +17,15 @@ vector<Quadrant> generate_quadrants(int xBorderSize, int yBorderSize){
     int xBorder = newImageWidth + xBorderSize;                  //max coordinates where a quadrant can be
     int yBorder = newImageHeight + yBorderSize;
 
-    vector<Quadrant> quadrants = {};
+    std::vector<Quadrant> quadrants = {};
     
     while (actualX <= (xBorder-xQuadrantSize)){
         //cout << "ActualX:" << actualX << " xBorder-size:" << xBorder-xBorderSize << endl;
         int secondX = actualX + xQuadrantSize;
         while(actualY <= (yBorder-yBorderSize-yQuadrantSize)){
             int secondY = actualY + yQuadrantSize;
-            pair<int,int> coord1 = make_pair(actualX,actualY);
-            pair<int,int> coord2 = make_pair(secondX,secondY);
+            std::pair<int,int> coord1 = std::make_pair(actualX,actualY);
+            std::pair<int,int> coord2 = std::make_pair(secondX,secondY);
             Quadrant newQuadrant(coord1,coord2);
             //newQuadrant.print();
             quadrants.push_back(newQuadrant);

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "color.hpp"
 
-using namespace std;
+//using namespace std;
 
 #ifndef PIXELM
 #define PIXELM
@@ -10,21 +10,21 @@ using namespace std;
 class Pixel {
 
 private:
-    pair<float, float> coords;
+    std::pair<float, float> coords;
     Color pixelGrayTone;
 
 public:
     Pixel(){
-        this->coords = make_pair(0,0);
+        this->coords = std::make_pair(0,0);
         this->pixelGrayTone = Color(0,0,0,255);
     }
 
-    Pixel(pair<int, int> _coords){
+    Pixel(std::pair<int, int> _coords){
         this->coords = _coords;
         this->pixelGrayTone = Color(0,0,0,255);
     }
 
-    pair<int, int> getCoords(){
+    std::pair<int, int> getCoords(){
         return this->coords;
     }
 
@@ -32,7 +32,7 @@ public:
         return this->pixelGrayTone;
     }
 
-    void setCoords(pair<int, int> _coords){
+    void setCoords(std::pair<int, int> _coords){
         this->coords = _coords;
     }
 
@@ -40,7 +40,7 @@ public:
         this->pixelGrayTone = gray;
     }
     void print(){
-        std::cout << "X:" << coords.first << " Y:" << coords.second << endl;
+        std::cout << "X:" << coords.first << " Y:" << coords.second << std::endl;
     }
 
 };

@@ -33,7 +33,7 @@ class GeneticBase {
         }
 
         float fitness(individual *pIndividual) {
-            return rand()%36;
+            return rand()%65000;
         }
 
         void reproduce(int pAmountOfChildrens) {
@@ -79,6 +79,9 @@ class GeneticBase {
             this->targetGenerations = 20;
         }
 
+        std::vector<cromodistribution*>* getRepresentation(){
+            return representation;
+        }
         void addDistribution(cromodistribution* pDistribution) {
             representation->push_back(pDistribution);
         }

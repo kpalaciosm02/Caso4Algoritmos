@@ -10,11 +10,13 @@
 
 #include <vector>
 
+#include "SocketClient.h"
 #include "quadrant.hpp"
 #include "divide_image.hpp"
 #include "probabilisticAlgorithm.hpp"
 #include "color.hpp"
 #include "grayTone.hpp"
+
 
 #include "geneticbase.h"
 #include "cromodistribution.h"
@@ -23,7 +25,7 @@
 
 #define DISTRIBUTION_SIZE 35
 
-using namespace std;
+//using namespace std;
 
 int main(){
   random_device device;
@@ -66,31 +68,43 @@ int main(){
   //Población inicial de individuos
     genetic.initPopulation(3000);
 
-    cout << "initial population" << endl;
+    std::cout << "initial population" << std::endl;
     vector<individual*> result = genetic.getPopulation();
-    for(int i=0; i<result.size(); i++) {
+    /*for(int i=0; i<result.size(); i++) {
         cout << result.at(i)->getCromosoma() << endl;
-    }
+    }*/
 
     // 3. measure the fitness of the population and reproduce it until reach the target generations
     // la cantidad de generaciones y cuantos hijos quiero hacer por generacion
     genetic.produceGenerations(3, 20);
 
     // check final population
-    cout << "final population" << endl;
+    std::cout << "final population" << std::endl;
     result = genetic.getPopulation();
-    for(int i=0; i<result.size(); i++) {
+    /*for(int i=0; i<result.size(); i++) {
         cout << result.at(i)->getCromosoma() << endl;
+    }*/
+    // Limpiar
+    stbi_image_free(image);
+
+    Color color1(79,29,69,255);
+    GrayTone gray1;
+    gray1.rgbtoGray(color1);
+
+    SocketClient client;
+
+    client.init();
+
+    client.clear();
+    std::vector<cromodistribution*>* chromo = genetic.getRepresentation();
+    for(int i = 0; i < chromo->size(); i++){
+      cromodistribution * actual = chromo->at(i);
+      client.paintDot(255,255,255,255,actual->x1,actual->y1,25);
     }
-
-  // Limpiar
-  stbi_image_free(image);
-
-  cout << "Llegue" << endl << endl;
-
-  Color color1(79,29,69,255);
-  GrayTone gray1;
-  gray1.rgbtoGray(color1);
+    //client.paintLine(100, 255, 176, 255, 100, 100, 250, 600);
+    //client.paintDot(200, 0, 15, 200, 500, 600, 15);
+    //client.paintDot(220, 150, 15, 200, 600, 600, 20);
+    client.closeConnection();
 
   return 0;
 }

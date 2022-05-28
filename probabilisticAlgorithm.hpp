@@ -10,11 +10,11 @@ class ProbabilisticBase {
         std::vector<Quadrant> quadrantsProbabilistic;
     public:
 
-        vector<Quadrant> getQuadrantsProbabilistic(){
+        std::vector<Quadrant> getQuadrantsProbabilistic(){
             return this->quadrantsProbabilistic;
         }
 
-        void setQuadrantsProbabilistic(vector<Quadrant> _quadrantsProbabilistic){
+        void setQuadrantsProbabilistic(std::vector<Quadrant> _quadrantsProbabilistic){
             this->quadrantsProbabilistic = _quadrantsProbabilistic;
         }
 
@@ -36,13 +36,13 @@ class ProbabilisticBase {
             return pixelRandom;
         }
 
-        void calculateDensity(vector<Quadrant> quadrants, int numberQuadrant){
+        void calculateDensity(std::vector<Quadrant> quadrants, int numberQuadrant){
             Quadrant quadrant = quadrants[numberQuadrant];
             float density = quadrant.getPixelRandomList().size() / (23400 * 0.2);
             quadrant.setDensityPixels(density);
         }
 
-        vector<float> newDistribution(vector<float> vec, int index){    //baja la probabilidad de un indice y sube las demas
+        std::vector<float> newDistribution(std::vector<float> vec, int index){    //baja la probabilidad de un indice y sube las demas
             float actualDist = vec.at(index);
             float newActualDist = actualDist/3;
             float distributeProb = newActualDist * 2;
@@ -59,7 +59,7 @@ class ProbabilisticBase {
             return vec;
         }
 
-        vector<Quadrant> chooseRandomQuadrant(int pixeles/*, std::discrete_distribution<> distribucion*/, std::mt19937 generador, std::vector<Quadrant> quadrants, Pixel pixelRandom, size_t RGB, int width, unsigned char *image, std::vector<float> vec){
+        std::vector<Quadrant> chooseRandomQuadrant(int pixeles/*, std::discrete_distribution<> distribucion*/, std::mt19937 generador, std::vector<Quadrant> quadrants, Pixel pixelRandom, size_t RGB, int width, unsigned char *image, std::vector<float> vec){
             int counter = 0;
             while(pixeles > 0){
                 std::discrete_distribution<> distribucion(vec.begin(),vec.end());
